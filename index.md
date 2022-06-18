@@ -1,37 +1,47 @@
-## Welcome to GitHub Pages
-
-You can use the [editor on GitHub](https://github.com/sytharsenal/sytharsenal.github.io/edit/main/index.md) to maintain and preview the content for your website in Markdown files.
-
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
-
-### Markdown
-
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+### Assignment 7
 
 ```markdown
-Syntax highlighted code block
+#set up
+databank<-read.table("C:\\Users\\selin\\Desktop\\zhanj392_crash.txt",sep=",",header=T,na.strings=c("","NA"))
+crash<-read.table("C:\\Users\\selin\\Desktop\\zhanj392_crash.txt",sep=",",header=T,na.strings=c("","NA"))
 
-# Header 1
-## Header 2
-### Header 3
+#1
+size<-crash$size
+size<-size[!is.na(size)]
+table(size)
+med<-crash$med
+med<-med[!is.na(med)]
+lnhic<-log(crash$hic)
+subset=(size == "comp" | size == "med")
+t.test(lnhic~size,data=crash,alt="two.sided",conf.level=0.92,var.equal=FALSE,na.action="na.omit",subset=(size=="comp"|size=="med"))
+#pvalue=0.1446,confidence interval (a,b) = -0.025976,0.28173802
 
-- Bulleted
-- List
+#4
+table<-read.table("C:\\Users\\selin\\Desktop\\3y_assignment_7_that_xy_bullcrap_problem.txt",sep=",",header=T,na.strings=c("","NA"))
+values<-table
+x<-table$x
+y<-table$y
+t.test(x~values,data=table,alt="two.sided",conf.level=.01,var.equal=FALSE,na.action="na.omit")
+reg<-lm(data=values)
+summary(reg)
+anova(reg)
+plot(reg,2,pch=19,col="blue")
+#^^for reference cus I didnt get it right in the end :(
 
-1. Numbered
-2. List
+#5
+databank<-read.table("C:\\Users\\selin\\Desktop\\zhanj392_crash.txt",sep=",",header=T,na.strings=c("","NA"))
+crash<-read.table("C:\\Users\\selin\\Desktop\\zhanj392_crash.txt",sep=",",header=T,na.strings=c("","NA"))
+lnhic<-log(crash$hic)
+mean(lnhic,na.rm=T)
+wt<-crash$wt
+mean(wt,na.rm=T)
+reg<-lm(lnhic~wt,data=crash)
+summary(reg)
+anova(reg)
+#b0=6.221, b1=0.0001564, pvalue = 0.000482
+#more severe for heavier vehicles because b1 is positive
 
-**Bold** and _Italic_ and `Code` text
+#8
 
-[Link](url) and ![Image](src)
 ```
 
-For more details see [Basic writing and formatting syntax](https://docs.github.com/en/github/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/sytharsenal/sytharsenal.github.io/settings/pages). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
